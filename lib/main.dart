@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'History App',
-      home: const LoginScreen(),
+      home: const HomeScreen(),
       theme: AppTheme().getTheme(context),
     );
   }
