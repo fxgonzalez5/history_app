@@ -32,7 +32,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  get: ^4.6.6
   iconify_flutter: ^0.0.5
+  qr_code_scanner: ^1.0.1
   url_launcher: ^6.2.1
 
 dev_dependencies:

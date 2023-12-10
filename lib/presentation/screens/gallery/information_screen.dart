@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:history_app/config/theme/responsive.dart';
+import 'package:history_app/presentation/widgets/widgets.dart';
 
 
 class InformationScreen extends StatelessWidget {
@@ -71,7 +72,11 @@ class _BoxContent extends StatelessWidget {
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _RoundedLine(),
+          RoundedLine(
+            width: responsive.wp(20),
+            height: responsive.ip(0.25),
+            color: Colors.grey[300]
+          ),
           const _Heading(),
           const Divider(
             height: 10,
@@ -107,26 +112,6 @@ class _Heading extends StatelessWidget {
               Text('Año: 1971', style: texts.titleSmall,),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _RoundedLine extends StatelessWidget {
-  const _RoundedLine();
-
-  @override
-  Widget build(BuildContext context) {
-    final responsive = Responsive(context);
-
-    return Center(
-      child: Container(
-        width: responsive.wp(20),
-        height: responsive.ip(0.25),
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(responsive.ip(0.25))
         ),
       ),
     );
