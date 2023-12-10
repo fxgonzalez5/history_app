@@ -11,85 +11,47 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
-    final colors = Theme.of(context).colorScheme;
-
-    return Scaffold(
-      body: const _HomeView(),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: colors.primary,
-        iconSize: responsive.ip(3),
-        unselectedItemColor: Colors.black45,
-        selectedItemColor: Colors.white,
-        showUnselectedLabels: false,
-        elevation: 0,
-        currentIndex: 0,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Inicio'
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.photo_library_outlined),
-            label: 'Mi Galería'
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline),
-            label: 'Información'
-          ),
-        ],
-        onTap: (int index) {
-          // TODO: Implementar la navegación entre pantallas
-        },
-      ),
-    );
-  }
-}
-
-class _HomeView extends StatelessWidget {
-  const _HomeView();
-
-  @override
-  Widget build(BuildContext context) {
-    final responsive = Responsive(context);
     final texts = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    return SafeArea(
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              icon: const Icon(Icons.exit_to_app_rounded),
-              iconSize: responsive.ip(3.5),
-              color: colors.secondary,
-              onPressed: (){
-                // TODO: Implementar el cierre de seisión
-              },
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: const Icon(Icons.exit_to_app_rounded),
+                iconSize: responsive.ip(3.5),
+                color: colors.secondary,
+                onPressed: (){
+                  // TODO: Implementar el cierre de seisión
+                },
+              ),
             ),
-          ),
 
-          Column(
-            children: [
-              SizedBox(height: responsive.hp(5)),
-              Text('UTPL en la historia', style: texts.headlineMedium,),
-              CustomProgress(
-                padding: EdgeInsets.symmetric(vertical: responsive.ip(3), horizontal: responsive.ip(5)),
-                textColor: colors.secondary,
-                backgroundColor: colors.primary.withOpacity(0.2),
-                foregroundColor: colors.secondary,
-                valueProgress: 0.3
-              ),
-              Divider(
-                height: 10,
-                thickness: 2,
-                indent: responsive.ip(3),
-                endIndent: responsive.ip(3),
-              ),
-              const _MenuOptions(),
-            ],
-          ),
-        ],
+            Column(
+              children: [
+                SizedBox(height: responsive.hp(5)),
+                Text('UTPL en la historia', style: texts.headlineMedium,),
+                CustomProgress(
+                  padding: EdgeInsets.symmetric(vertical: responsive.ip(3), horizontal: responsive.ip(5)),
+                  textColor: colors.secondary,
+                  backgroundColor: colors.primary.withOpacity(0.2),
+                  foregroundColor: colors.secondary,
+                  valueProgress: 0.3
+                ),
+                Divider(
+                  height: 10,
+                  thickness: 2,
+                  indent: responsive.ip(3),
+                  endIndent: responsive.ip(3),
+                ),
+                const _MenuOptions(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
