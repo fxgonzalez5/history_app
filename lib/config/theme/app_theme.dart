@@ -38,6 +38,14 @@ class AppTheme {
       titleMedium: TextStyle(
         fontSize: Responsive(context).ip(1.65),
         fontWeight: FontWeight.w300
+      ),
+      titleSmall: TextStyle(
+        fontSize: Responsive(context).ip(1.8),
+        fontWeight: FontWeight.w600,
+        color: Colors.black54
+      ),
+      bodyLarge: TextStyle(
+        fontSize: Responsive(context).ip(1.6),
       )
     ),
 
