@@ -36,7 +36,7 @@ const List<MenuItem> appMenuItems = [
     subTitle: 'Ingresa a la base de datos de la historia UTPL',
     linkText: 'conoce mas +',
     link: 'https://www.utpl.edu.ec/historia',
-    route: '/history'
+    route: ''
   ),
 
 

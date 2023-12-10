@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:history_app/config/theme/responsive.dart';
-import 'package:history_app/presentation/widgets/custom_text_form_field.dart';
+import 'package:history_app/presentation/widgets/widgets.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -40,40 +41,24 @@ class _ImageHead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final responsive = Responsive(context);
     final colors = Theme.of(context).colorScheme;
 
     return Stack(
       children: [
-        SizedBox(
-          width: double.infinity,
-          height: responsive.hp(30),
-          child: CustomPaint(
-            painter: _CustomFigure(
-              color: colors.secondary,
-              scale: 2
-            ),
-          ),
+        CustomFigure(
+          color: colors.secondary,
+          scale: 2,
         ),
-        SizedBox(
-          width: double.infinity,
-          height: responsive.hp(30),
-          child: CustomPaint(
-            painter: _CustomFigure(
-              color: colors.primary,
-              scale: 1
-            ),
-          ),
+        CustomFigure(
+          color: colors.primary,
+          scale: 1,
         ),
         ClipPath(
           clipper: _CustomFigureClipper(),
-          child: SizedBox(
-            width: double.infinity,
-            height: responsive.hp(30),
-            child: CustomPaint(
-              foregroundPainter: _CustomFigure(color: colors.primary.withOpacity(0.5)),
-              child: Image.asset('assets/images/campus_utpl.png', fit: BoxFit.cover,)
-            ),
+          child: CustomFigure(
+            backgroundImage: Image.asset('assets/images/campus_utpl.png', fit: BoxFit.cover),
+            expand: true,
+            child: Container(color: colors.primary.withOpacity(0.5),)
           )
         )
       ],
@@ -81,62 +66,14 @@ class _ImageHead extends StatelessWidget {
   }
 }
 
-class _CustomFigure extends CustomPainter {
-  // Definición del lienzo
-  final _path = Path();
-  final Color? color;
-  final double scale;
-
-  _CustomFigure({
-    this.color, this.scale = 0.0
-  }): assert( scale >= 0, 'The minimum scaling value is 0' ),  
-      assert( scale <= 3,  'Maximum scaling value is 3');
-
-  Path getPath(Size size) {
-    final scaleMin = (scale / 0.05);
-    final scaleY2 = (scale / 0.02);
-
-    // Puntos a dibujar
-    _path.lineTo(0, (size.height + scaleMin) * 0.85);
-
-    _path.quadraticBezierTo(
-      (size.width + scaleMin) * 0.8, (size.height + scaleMin) + 25,
-      (size.width + scaleMin) * 0.8 , (size.height + scaleMin) * 0.6 
-    );
-    
-    _path.quadraticBezierTo(
-      (size.width + scaleMin) * 0.8, (size.height + scaleMin) * 0.4, 
-      size.width, (size.height + scaleY2) * 0.32
-    );
-    
-    _path.lineTo(size.width, 0);
-    
-    return _path;
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Configuración del lapiz/pincel
-    final paint = Paint()
-      ..strokeWidth = 1
-      ..color = (color == null) ? Colors.transparent : color!
-      ..style = PaintingStyle.fill;
-
-    // Lugar donde se va ha dibujar
-    canvas.drawPath(getPath(size), paint);
-  } 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}
-
 class _CustomFigureClipper extends CustomClipper<Path> {
-  _CustomFigure customFigure;
+  Figure figure;
 
-  _CustomFigureClipper(): customFigure = _CustomFigure();
+  _CustomFigureClipper(): figure = Figure(null, 0);
 
   @override
   Path getClip(Size size) {
-    return customFigure.getPath(size);
+    return figure.getPath(size);
   }
 
   @override
@@ -148,6 +85,7 @@ class _TextSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive(context);
     final texts = Theme.of(context).textTheme;
 
     return Column(
@@ -156,6 +94,7 @@ class _TextSection extends StatelessWidget {
           'UTPL en la historia',
           style: texts.headlineMedium,
         ),
+        SizedBox(height: responsive.ip(1),),
         Text(
           'Inicia sesión con tu correo institucional',
           style: texts.titleMedium,

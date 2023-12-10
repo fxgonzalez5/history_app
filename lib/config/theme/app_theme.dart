@@ -5,10 +5,10 @@ class AppTheme {
 
   static const Color primary =  Color(0xff00ACC1);
   static const Color secondary =  Color(0xffFFAB00);
-  final Brightness colorMode;
+  final bool isDarkMode;
 
   AppTheme({
-    this.colorMode = Brightness.light
+    this.isDarkMode = false
   });
 
   ThemeData getTheme(BuildContext context) => ThemeData(
@@ -17,13 +17,23 @@ class AppTheme {
       seedColor: Colors.cyanAccent.shade700,
       primary: primary,
       secondary: secondary,
-      brightness: colorMode
+      brightness: isDarkMode ? Brightness.dark : Brightness.light,
     ),
 
     textTheme: TextTheme(
+      headlineLarge: const TextStyle(
+        color: secondary,
+        fontWeight: FontWeight.bold
+      ),
       headlineMedium: const TextStyle(
         color: primary,
         fontWeight: FontWeight.w500,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: Responsive(context).ip(1.7),
+      ),
+      titleLarge: const TextStyle(
+        fontWeight: FontWeight.bold
       ),
       titleMedium: TextStyle(
         fontSize: Responsive(context).ip(1.65),
