@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'package:history_app/config/routes/app_route.dart';
 import 'package:history_app/config/theme/app_theme.dart';
-import 'package:history_app/presentation/screens/screens.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,10 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'History App',
-      home: const ScanScreen(),
+      initialRoute: initialPage,
+      getPages: appRouter,
       theme: AppTheme().getTheme(context),
     );
   }

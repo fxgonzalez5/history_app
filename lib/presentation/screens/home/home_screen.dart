@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:history_app/config/menu/menu_items.dart';
 import 'package:history_app/config/theme/responsive.dart';
+import 'package:history_app/presentation/screens/screens.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
 
 
@@ -91,9 +93,16 @@ class _MenuOptions extends StatelessWidget {
               decorationColor: colors.primary,
               decorationThickness: 2,
             ),
-            route: menuItem.route,
-            onTap: () {
-              // TODO: Implementar la navegación entre pantallas
+            onTap: menuItem.route.isEmpty
+            ? null
+            : () {
+              final navigationController = Get.find<NavigationController>();
+
+              if (menuItem.route == '/gallery'){
+                navigationController.selectMenuItem = 1;
+              } else {
+                Get.toNamed(menuItem.route);
+              }
             },
           );
         },

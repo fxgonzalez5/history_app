@@ -22,7 +22,7 @@ const List<MenuItem> appMenuItems = [
     image: 'assets/images/qr.png',
     title: 'Escanea la historia',
     subTitle: 'Escanea el código QR aquí',
-    route: '/qr'
+    route: '/scan'
   ),
   MenuItem(
     image: 'assets/images/gallery.png',
@@ -38,6 +38,4 @@ const List<MenuItem> appMenuItems = [
     link: 'https://www.utpl.edu.ec/historia',
     route: ''
   ),
-
-
 ];

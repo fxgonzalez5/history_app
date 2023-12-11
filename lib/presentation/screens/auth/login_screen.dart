@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:history_app/config/theme/responsive.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
@@ -145,12 +146,14 @@ class _FormContainer extends StatelessWidget {
                 ),
                 child: const Text('Iniciar Sesión'),
                 onPressed: () {
-                  // TODO: Validate returns true if the form is valid, or false otherwise.
+                  // TODO: Validar el formulario
                   // if (_formKey.currentState!.validate()) {
                     // ScaffoldMessenger.of(context).showSnackBar(
                       // const SnackBar(content: Text('Processing Data')),
                     // );
                   // }
+
+                  Get.offNamed('/navigation');
                 },
               ),
             ],

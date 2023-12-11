@@ -1,8 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import 'package:history_app/presentation/screens/screens.dart';
 import 'package:history_app/config/theme/responsive.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+part  'scan_controller.dart';
+part 'scan_binding.dart';
 
 class ScanScreen extends StatelessWidget {
   const ScanScreen({super.key});
@@ -12,6 +18,7 @@ class ScanScreen extends StatelessWidget {
     final responsive = Responsive(context);
 
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -37,24 +44,13 @@ class ScanScreen extends StatelessWidget {
   }
 }
 
-class _CustomQrScanner extends StatelessWidget {
+class _CustomQrScanner extends GetView<ScanController> {
   const _CustomQrScanner();
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-    QRViewController? controller;
-    Barcode? result;
     final responsive = Responsive(context);
     final colors = Theme.of(context).colorScheme;
-
-    void _onQRViewCreated(QRViewController ctr) {
-      controller = ctr;
-      controller!.scannedDataStream.listen((scanData) {
-        result = scanData;
-        print(result!.format);
-      });
-    }
 
     return SizedBox(
       width: responsive.wp(75),
@@ -62,8 +58,8 @@ class _CustomQrScanner extends StatelessWidget {
       child: Stack(
         children: [
           QRView(
-            key: qrKey,
-            onQRViewCreated: _onQRViewCreated,
+            key: controller.qrKey,
+            onQRViewCreated: controller.onQRViewCreated,
             overlay: QrScannerOverlayShape(
               overlayColor: Colors.white,
               borderColor: colors.secondary,

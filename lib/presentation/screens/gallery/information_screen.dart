@@ -9,52 +9,34 @@ class InformationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () {},
-          )
-        ],
-      ),
-      body: const _InformationView()
-   );
-  }
-}
-
-class _InformationView extends StatelessWidget {
-  const _InformationView();
-
-  @override
-  Widget build(BuildContext context) {
     final responsive = Responsive(context);
 
-    return CustomScrollView(
-      slivers: [
-        const _CustomSliverAppBar(),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          const _CustomSliverAppBar(),
 
-        SliverToBoxAdapter(
-          child: Container(
-            height: responsive.hp(60),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(responsive.ip(3)),
-                topRight: Radius.circular(responsive.ip(3))
+          SliverToBoxAdapter(
+            child: Container(
+              height: responsive.hp(60),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(responsive.ip(3)),
+                  topRight: Radius.circular(responsive.ip(3))
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black45,
+                    blurRadius: 2,
+                  )
+                ]
               ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black45,
-                  blurRadius: 2,
-                )
-              ]
-            ),
-            child: const _BoxContent(),
-          ),  
-        ),
-      ],
+              child: const _BoxContent(),
+            ),  
+          ),
+        ],
+      )
     );
   }
 }
@@ -126,6 +108,12 @@ class _CustomSliverAppBar extends StatelessWidget {
     final responsive = Responsive(context);
 
     return SliverAppBar(
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.share),
+          onPressed: () {},
+        )
+      ],
       backgroundColor: Colors.transparent,
       expandedHeight: responsive.hp(80),
       flexibleSpace: FlexibleSpaceBar(

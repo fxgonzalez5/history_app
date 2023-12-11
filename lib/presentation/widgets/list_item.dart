@@ -9,7 +9,6 @@ class ListItem extends StatelessWidget {
   final String? linkText;
   final String? link;
   final TextStyle? linkStyle;
-  final String route;
   final VoidCallback? onTap;
 
   const ListItem({
@@ -20,7 +19,6 @@ class ListItem extends StatelessWidget {
     this.linkText,
     this.link,
     this.linkStyle,
-    required this.route,
     this.onTap,
   });
 
@@ -60,11 +58,9 @@ class ListItem extends StatelessWidget {
                         linkText!,
                         style: linkStyle
                       ),
-                      onTap: () {
-                        if (link != null){
-                          openUrl(link!);
-                        }
-                      },
+                      onTap: link != null
+                      ? () => openUrl(link!)
+                      : null
                     ),
                 ],
               ),
