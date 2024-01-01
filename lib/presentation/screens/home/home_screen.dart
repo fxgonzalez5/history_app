@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
     final responsive = Responsive(context);
     final texts = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
+    final galleryController = Get.find<GalleryController>();
 
     return Scaffold(
       body: SafeArea(
@@ -41,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                   textColor: colors.secondary,
                   backgroundColor: colors.primary.withOpacity(0.2),
                   foregroundColor: colors.secondary,
-                  valueProgress: 0.3
+                  valueProgress: galleryController.hitos.length / galleryController.totalHitos
                 ),
                 Divider(
                   height: 10,

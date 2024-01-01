@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "622922588226",
+    "project_id": "fifty-year-utpl",
+    "storage_bucket": "fifty-year-utpl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622922588226:android:fea0c0040c90db2d4c8ddb",
+        "android_client_info": {
+          "package_name": "com.utpl.history_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622922588226-rvh8870e1tqge80iciuvn7ob48qg8s5e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDar4BTvsNxYa3UipxXTLWWdH9nvRpJm1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622922588226-rvh8870e1tqge80iciuvn7ob48qg8s5e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

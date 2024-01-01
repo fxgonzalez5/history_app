@@ -53,14 +53,14 @@ class ListItem extends StatelessWidget {
                   SizedBox(height: responsive.ip(1),),
                   subTitle,
                   if (linkText != null)
-                    InkWell(
+                    GestureDetector(
+                      onTap: link != null
+                      ? () => openUrl(link!)
+                      : null,
                       child: Text(
                         linkText!,
                         style: linkStyle
-                      ),
-                      onTap: link != null
-                      ? () => openUrl(link!)
-                      : null
+                      )
                     ),
                 ],
               ),

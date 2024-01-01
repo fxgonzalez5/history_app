@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:history_app/config/theme/responsive.dart';
+import 'package:history_app/infraestructure/models/hito_model.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
 
 
@@ -10,11 +12,12 @@ class InformationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
+    final hito = Get.arguments as HitosModel;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const _CustomSliverAppBar(),
+          _CustomSliverAppBar(hito.image),
 
           SliverToBoxAdapter(
             child: Container(
@@ -32,7 +35,7 @@ class InformationScreen extends StatelessWidget {
                   )
                 ]
               ),
-              child: const _BoxContent(),
+              child: _BoxContent(hito),
             ),  
           ),
         ],
@@ -42,7 +45,9 @@ class InformationScreen extends StatelessWidget {
 }
 
 class _BoxContent extends StatelessWidget {
-  const _BoxContent();
+  final HitosModel hito;
+
+  const _BoxContent(this.hito);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +64,7 @@ class _BoxContent extends StatelessWidget {
             height: responsive.ip(0.25),
             color: Colors.grey[300]
           ),
-          const _Heading(),
+          _Heading(hito),
           const Divider(
             height: 10,
             thickness: 2,
@@ -68,7 +73,7 @@ class _BoxContent extends StatelessWidget {
           SizedBox(height: responsive.ip(1.5),),
           Text('Descripción', style: texts.titleSmall,),
           SizedBox(height: responsive.ip(1.5),),
-          Text('El 3 de mayo José María Velasco Ibarra, filósofo de virtudes extraordinarias y entonces presidente de la república, en Decreto Ejecutivo Nro. 646, faculta la creación de la UTPL.', style: texts.bodyLarge, textAlign: TextAlign.justify),
+          Text(hito.description, style: texts.bodyLarge, textAlign: TextAlign.justify),
         ],
       ),
     );
@@ -76,7 +81,9 @@ class _BoxContent extends StatelessWidget {
 }
 
 class _Heading extends StatelessWidget {
-  const _Heading();
+  final HitosModel hito;
+
+  const _Heading(this.hito);
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +97,8 @@ class _Heading extends StatelessWidget {
           width: responsive.wp(75),
           child: Column(
             children: [
-              Text('Aprobación del Decreto de Creación de UTPL', style: TextStyle(fontSize: responsive.ip(2), height: 1.25), textAlign: TextAlign.center,),
-              Text('Año: 1971', style: texts.titleSmall,),
+              Text(hito.title, style: TextStyle(fontSize: responsive.ip(2), height: 1.25), textAlign: TextAlign.center,),
+              Text('Año: ${hito.date}', style: texts.titleSmall,),
             ],
           ),
         ),
@@ -101,7 +108,9 @@ class _Heading extends StatelessWidget {
 }
 
 class _CustomSliverAppBar extends StatelessWidget {
-  const _CustomSliverAppBar();
+  final String image;
+
+  const _CustomSliverAppBar(this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +130,7 @@ class _CustomSliverAppBar extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(responsive.ip(1)),
             child: Image.network(
-              'https://picsum.photos/500/500',
+              image,
               width: responsive.wp(70),
               height: responsive.hp(50),
               fit: BoxFit.cover,

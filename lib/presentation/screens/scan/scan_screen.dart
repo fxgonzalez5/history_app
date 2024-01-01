@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:history_app/domain/services/firestore_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'package:history_app/presentation/screens/screens.dart';
