@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:history_app/config/theme/responsive.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
 
+part 'login_controller.dart';
+part 'login_binding.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -105,7 +107,7 @@ class _TextSection extends StatelessWidget {
   }
 }
 
-class _FormContainer extends StatelessWidget {
+class _FormContainer extends GetView<LoginController> {
   const _FormContainer();
 
   @override
@@ -116,7 +118,7 @@ class _FormContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: responsive.ip(5)),
       child: Form(
           // TODO: crear la llave del formulario
-          // key: _formKey,
+          key: controller.formKey,
           child: Column(
             children: [
               const CustomTextFormField(
@@ -152,7 +154,6 @@ class _FormContainer extends StatelessWidget {
                       // const SnackBar(content: Text('Processing Data')),
                     // );
                   // }
-
                   Get.offNamed('/navigation');
                 },
               ),

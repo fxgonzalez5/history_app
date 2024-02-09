@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:history_app/config/theme/responsive.dart';
-import 'package:history_app/domain/services/firestore_service.dart';
-import 'package:history_app/infraestructure/models/hito_model.dart';
+import 'package:history_app/domain/entities/hito.dart';
+import 'package:history_app/domain/repositories/cluod_database_repository.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
 
 part 'gallery_controller.dart';
-part 'gallery_binding.dart';
+// part 'gallery_binding.dart';
 
 class GalleryScreen extends GetView<GalleryController> {
   const GalleryScreen({super.key});
@@ -38,7 +38,7 @@ class GalleryScreen extends GetView<GalleryController> {
 }
 
 class _GalleryView extends StatelessWidget {
-  final List<HitosModel> hitos; 
+  final List<Hito> hitos; 
 
   const _GalleryView(this.hitos);
 
@@ -59,7 +59,7 @@ class _GalleryView extends StatelessWidget {
               width: responsive.wp(35),
               child: Center(
                 child: Image.network(
-                  hito.image,
+                  hito.imageUrl,
                   width: responsive.wp(20),
                   height: responsive.hp(12.5),
                   fit: BoxFit.cover,
@@ -70,7 +70,7 @@ class _GalleryView extends StatelessWidget {
             subTitle: Row(
               children: [
                 Text('Año: ', style: TextStyle(fontSize: responsive.ip(1.4), color: Colors.grey)),
-                Text('${hito.date}', style: TextStyle(fontSize: responsive.ip(1.4), fontWeight: FontWeight.w500)),
+                Text('${hito.year}', style: TextStyle(fontSize: responsive.ip(1.4), fontWeight: FontWeight.w500)),
               ],
             ),
             linkText: 'Ver más',
@@ -144,7 +144,7 @@ class _CustomCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _CustomImage(hito!.image),
+              _CustomImage(hito!.imageUrl),
               SizedBox(height: responsive.ip(2)),
               Text(
                 hito.title,
@@ -153,27 +153,20 @@ class _CustomCard extends StatelessWidget {
               Row(
                 children: [
                   TextButton(
-                      style: ButtonStyle(
-                          padding: MaterialStatePropertyAll(
-                              EdgeInsets.symmetric(vertical: responsive.ip(1))),
-                          minimumSize:
-                              const MaterialStatePropertyAll(Size.zero),
-                          overlayColor: const MaterialStatePropertyAll(
-                              Colors.transparent)),
-                      onPressed: () => Get.toNamed('/information', arguments: hito),
-                      child: Text('Ver más...',
-                          style: TextStyle(
-                              fontSize: responsive.ip(1.35),
-                              color: colors.secondary))),
+                    style: ButtonStyle(
+                      padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: responsive.ip(1))),
+                      minimumSize: const MaterialStatePropertyAll(Size.zero),
+                      overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+                    ),
+                    onPressed: () => Get.toNamed('/information', arguments: hito),
+                    child: Text(
+                      'Ver más...',
+                      style: TextStyle(fontSize: responsive.ip(1.35), color: colors.secondary),
+                    ),
+                  ),
                   const Spacer(),
-                  Text('Ganaste 10 pts.',
-                      style: TextStyle(
-                          fontSize: responsive.ip(1.35),
-                          color: Colors.black54)),
-                  Icon(
-                    Icons.star_rounded,
-                    color: colors.secondary,
-                  )
+                  Text('Ganaste 10 pts.', style: TextStyle(fontSize: responsive.ip(1.35), color: Colors.black54)),
+                  Icon(Icons.star_rounded, color: colors.secondary),
                 ],
               )
             ],

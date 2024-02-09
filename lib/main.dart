@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:history_app/config/firebase/firebase_options.dart';
 import 'package:history_app/config/routes/app_route.dart';
 import 'package:history_app/config/theme/app_theme.dart';
-import 'package:history_app/presentation/screens/screens.dart';
+// import 'package:history_app/presentation/screens/screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(GalleryController());
+    // Get.put(GalleryController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'History App',

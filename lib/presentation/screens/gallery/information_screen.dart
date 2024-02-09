@@ -12,7 +12,7 @@ class InformationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
-    final hito = Get.arguments as HitosModel;
+    final hito = Get.arguments as HitoModel;
 
     return Scaffold(
       body: CustomScrollView(
@@ -45,7 +45,7 @@ class InformationScreen extends StatelessWidget {
 }
 
 class _BoxContent extends StatelessWidget {
-  final HitosModel hito;
+  final HitoModel hito;
 
   const _BoxContent(this.hito);
 
@@ -81,7 +81,7 @@ class _BoxContent extends StatelessWidget {
 }
 
 class _Heading extends StatelessWidget {
-  final HitosModel hito;
+  final HitoModel hito;
 
   const _Heading(this.hito);
 
