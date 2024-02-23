@@ -30,8 +30,8 @@ class FirebaseAuthService {
         final userEntity = UserEntity(
           id: credential.user!.uid,
           email: email,
-          name: 'Nombre y Apellido', // Modificar para agregarle un nombre al usuario
-          photoUrl: '' // Modificar para agregarle una foto al usuario
+          name: 'Francisco González',
+          photoUrl: 'https://avatars.githubusercontent.com/u/73602789?s=400&u=dd0f4dc89c961c77ad50d803cf4310e7b95a8152&v=4'
         );
 
         Get.find<CloudDatabaseRepositoryImpl>().saveUser(userEntity);
