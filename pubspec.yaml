@@ -31,17 +31,20 @@ dependencies:
   animate_do: ^3.1.2
   cloud_firestore: ^4.13.6
   cupertino_icons: ^1.0.2
+  firebase_auth: ^4.17.4
   firebase_core: ^2.24.2
   flutter:
     sdk: flutter
   get: ^4.6.6
+  get_storage: ^2.1.1
   iconify_flutter: ^0.0.5
   qr_code_scanner: ^1.0.1
   url_launcher: ^6.2.1
+  video_player: ^2.8.2
 
 dev_dependencies:
   change_app_package_name: ^1.1.0
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
 

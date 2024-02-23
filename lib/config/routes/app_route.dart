@@ -1,46 +1,53 @@
 import 'package:get/get.dart';
-import 'package:history_app/infraestructure/datasources/firebase_datasource.dart';
-import 'package:history_app/infraestructure/repositories/cloud_database_repository_impl.dart';
 import 'package:history_app/presentation/screens/screens.dart';
 
-const String initialPage = '/login';
-final cloudDatabaseRepository = CloudDatabaseRepositoryImpl(FirebaseDatasource());
+const String initialPage = '/';
 
 final appRouter = <GetPage<dynamic>> [
     GetPage(
-      name: '/login',
-      page: () => const LoginScreen(),
+      name: '/',
+      page: () => const CheckAuthScreen(),
       bindings: [
-        LoginBinding(),
-        BindingsBuilder.put(() => GalleryController(cloudDatabaseRepository)),
+        LoginBinding()
       ]
+    ),
+
+    GetPage(
+      name: '/login',
+      page: () => const LoginPage(),
+      binding: LoginBinding()
     ),
     
     GetPage(
       name: '/navigation',
-      page: () => const NavigationScreen(),
+      page: () => const NavigationPage(),
       binding: NavigationBinding()
     ),
     
     GetPage(
       name: '/home',
-      page: () => const HomeScreen()
+      page: () => const HomePage()
     ),
     
     GetPage(
       name: '/gallery',
-      page: () => const GalleryScreen(),
-      // binding: GalleryBinding()
+      page: () => const GalleryPage(),
+      binding: GalleryBinding()
     ),
     
     GetPage(
       name: '/scan',
-      page: () => const ScanScreen(),
-      // binding: ScanBinding()
+      page: () => const ScanPage(),
+      binding: ScanBinding()
     ),
     
     GetPage(
       name: '/information',
-      page: () => const InformationScreen()
+      page: () => const HitoPage()
+    ),
+    
+    GetPage(
+      name: '/video',
+      page: () => const FullVideoPage()
     ),
 ];

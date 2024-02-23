@@ -4,18 +4,21 @@ import 'package:get/get.dart';
 import 'package:history_app/config/menu/menu_items.dart';
 import 'package:history_app/config/theme/responsive.dart';
 import 'package:history_app/presentation/screens/screens.dart';
+import 'package:history_app/presentation/services/firebase_auth_service.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
 
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
     final texts = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
-    final galleryController = Get.find<GalleryController>();
+    final firebaseAuthService = FirebaseAuthService();
+    final navegationController = Get.find<NavigationController>();
+    final userController = Get.find<UserController>();
 
     return Scaffold(
       body: SafeArea(
@@ -27,8 +30,9 @@ class HomeScreen extends StatelessWidget {
                 icon: const Icon(Icons.exit_to_app_rounded),
                 iconSize: responsive.ip(3.5),
                 color: colors.secondary,
-                onPressed: (){
-                  // TODO: Implementar el cierre de seisión
+                onPressed: () async {
+                  await firebaseAuthService.logout();
+                  Get.offAllNamed('/login');
                 },
               ),
             ),
@@ -42,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                   textColor: colors.secondary,
                   backgroundColor: colors.primary.withOpacity(0.2),
                   foregroundColor: colors.secondary,
-                  valueProgress: galleryController.hitos.length / galleryController.totalHitos
+                  valueProgress: userController.user!.hitos.length / navegationController.totalHitos
                 ),
                 Divider(
                   height: 10,
