@@ -11,4 +11,14 @@ class HitoMapper {
     description: hitodb.description,
     category: hitodb.category ?? ''
   );
+
+  static HitoModel entityToModel(Hito hito) => HitoModel(
+    id: hito.id,
+    image: hito.imageUrl,
+    video: hito.videoUrl,
+    title: hito.title,
+    date: hito.year,
+    description: hito.description,
+    category: hito.category
+  );
 }

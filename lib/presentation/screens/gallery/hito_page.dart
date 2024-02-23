@@ -1,23 +1,29 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'package:history_app/config/theme/responsive.dart';
-import 'package:history_app/infraestructure/models/hito_model.dart';
+import 'package:history_app/domain/entities/hito.dart';
+import 'package:history_app/presentation/screens/gallery/gallery_page.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
 
 
-class InformationScreen extends StatelessWidget {
-  const InformationScreen({super.key});
+class HitoPage extends StatelessWidget {
+  const HitoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
-    final hito = Get.arguments as HitoModel;
+    final hito = Get.find<GalleryController>().hito!;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomSliverAppBar(hito.image),
+          _CustomSliverAppBar(
+            image: hito.imageUrl,
+            video: hito.videoUrl
+          ),
 
           SliverToBoxAdapter(
             child: Container(
@@ -45,7 +51,7 @@ class InformationScreen extends StatelessWidget {
 }
 
 class _BoxContent extends StatelessWidget {
-  final HitoModel hito;
+  final Hito hito;
 
   const _BoxContent(this.hito);
 
@@ -81,7 +87,7 @@ class _BoxContent extends StatelessWidget {
 }
 
 class _Heading extends StatelessWidget {
-  final HitoModel hito;
+  final Hito hito;
 
   const _Heading(this.hito);
 
@@ -98,7 +104,7 @@ class _Heading extends StatelessWidget {
           child: Column(
             children: [
               Text(hito.title, style: TextStyle(fontSize: responsive.ip(2), height: 1.25), textAlign: TextAlign.center,),
-              Text('Año: ${hito.date}', style: texts.titleSmall,),
+              Text('Año: ${hito.year}', style: texts.titleSmall,),
             ],
           ),
         ),
@@ -109,35 +115,65 @@ class _Heading extends StatelessWidget {
 
 class _CustomSliverAppBar extends StatelessWidget {
   final String image;
+  final String video;
 
-  const _CustomSliverAppBar(this.image);
+  const _CustomSliverAppBar({
+    required this.image,
+    required this.video
+  });
 
   @override
   Widget build(BuildContext context) {
     final responsive = Responsive(context);
+    final colors = Theme.of(context).colorScheme;
+    final galleryController = Get.find<GalleryController>();
 
-    return SliverAppBar(
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.share),
-          onPressed: () {},
-        )
-      ],
-      backgroundColor: Colors.transparent,
-      expandedHeight: responsive.hp(80),
-      flexibleSpace: FlexibleSpaceBar(
-        background: Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(responsive.ip(1)),
-            child: Image.network(
-              image,
-              width: responsive.wp(70),
-              height: responsive.hp(50),
-              fit: BoxFit.cover,
+    return Obx(
+      () => SliverAppBar(
+        actions: [
+          if (galleryController.currentPage != null && galleryController.currentPage == 1)
+            FadeIn(
+              child: IconButton(
+                icon: const Icon(Icons.screen_rotation_alt_outlined),
+                onPressed: () async {
+                  await SystemChrome.setPreferredOrientations([
+                    DeviceOrientation.landscapeRight,
+                    DeviceOrientation.landscapeLeft,
+                  ]);
+                  Get.toNamed('/video');
+                },
+              ),
             ),
+          
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () {},
+          )
+        ],
+        expandedHeight: responsive.hp(80),
+        flexibleSpace: FlexibleSpaceBar(
+          titlePadding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.photo_library_outlined, size: responsive.ip(1.5), color: colors.secondary),
+              if(video != 'no-video') 
+                ...[
+                  SizedBox(width: responsive.ip(0.5)),
+                  Icon(Icons.video_collection_outlined, size: responsive.ip(1.5), color: colors.secondary)
+                ]
+            ],
+          ),
+          background: PageView(
+            onPageChanged: (page) => galleryController.currentPage = page,
+            children: [
+              HeaderImage(image),
+              if(video != 'no-video')
+                HeaderVideo(video)
+            ],
           ),
         ),
-      ),
+      )
     );
   }
 }

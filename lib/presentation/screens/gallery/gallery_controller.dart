@@ -1,28 +1,14 @@
-part of 'gallery_screen.dart';
+part of 'gallery_page.dart';
 
 class GalleryController extends GetxController {
-  final CloudDatabaseRepository cloudDatabaseRepository;
+  final CloudDatabaseRepository cloudDatabaseRepository = Get.find<CloudDatabaseRepositoryImpl>();
   late AnimationController animateController;
-  late final int totalHitos;
-  final List<Hito> hitos = [];
+  final UserController userController = Get.find<UserController>();
+  final Rxn<VideoPlayerController> videoController = Rxn<VideoPlayerController>();
   final RxBool _isVisibility = true.obs;
-  final Rxn<Hito> _newHito = Rxn<Hito>();
-
-  GalleryController(this.cloudDatabaseRepository);
-
-  @override
-  void onInit() async {
-    super.onInit();
-    totalHitos = await cloudDatabaseRepository.getNumberOfHitos();
-  }
-
-  Hito? get newHito => _newHito.value;
-  set newHito(Hito? value) {
-    _newHito.value = value;
-    if (value != null) {
-      hitos.add(value);
-    }
-  }
+  final Rxn<Hito> _hito = Rxn<Hito>();
+  final Rxn<int> _selectedOption = Rxn<int>();
+  final Rxn<int> _currentPage = Rxn<int>();
 
   bool get isVisibility => _isVisibility.value;
   set isVisibility(bool value) {
@@ -30,9 +16,18 @@ class GalleryController extends GetxController {
     animationDelay();
   }
 
+  Hito? get hito => _hito.value;
+  set hito(Hito? value) => _hito.value = value;
+
+  int? get selectedOption => _selectedOption.value;
+  set selectedOption(int? value) => _selectedOption.value = value;
+
+  int? get currentPage => _currentPage.value;
+  set currentPage(int? value) => _currentPage.value = value;
+
   Future<void> animationDelay() async {
     await Future.delayed(const Duration(milliseconds: 5300));
-    _newHito.value = null;
+    _hito.value = null;
     _isVisibility.value = true;
   }
 }

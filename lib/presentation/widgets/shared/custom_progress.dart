@@ -29,12 +29,14 @@ class CustomProgress extends StatelessWidget {
         children: [
           Text('Tus puntos', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
           const SizedBox(height: 10,),
-          LinearProgressIndicator(
+          ClipRRect(
             borderRadius: BorderRadius.circular(responsive.ip(1)),
-            minHeight: responsive.ip(1.5),
-            backgroundColor: backgroundColor,
-            color: foregroundColor,
-            value: valueProgress,
+            child: LinearProgressIndicator(
+              minHeight: responsive.ip(1.5),
+              backgroundColor: backgroundColor,
+              color: foregroundColor,
+              value: valueProgress,
+            ),
           ),
         ],
       ),

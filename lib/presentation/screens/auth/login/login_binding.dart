@@ -1,4 +1,4 @@
-part of 'login_screen.dart';
+part of 'login_page.dart';
 
 class LoginBinding implements Bindings {
   @override

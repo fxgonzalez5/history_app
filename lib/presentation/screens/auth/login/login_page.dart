@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:history_app/config/theme/responsive.dart';
+import 'package:history_app/presentation/services/firebase_auth_service.dart';
 import 'package:history_app/presentation/widgets/widgets.dart';
 
 part 'login_controller.dart';
 part 'login_binding.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -117,19 +118,41 @@ class _FormContainer extends GetView<LoginController> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: responsive.ip(5)),
       child: Form(
-          // TODO: crear la llave del formulario
           key: controller.formKey,
           child: Column(
             children: [
-              const CustomTextFormField(
+              CustomTextFormField(
+                controller: controller.emailController,
                 label: 'Correo',
-                hint: 'usuario@utpl.edu.ec'
+                hint: 'usuario@utpl.edu.ec',
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  String pattern =r'^[\w-\.0-9]+@utpl\.edu\.ec$';
+                  RegExp regExp = RegExp(pattern);
+
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese el correo';
+                  } else if (!regExp.hasMatch(value)) {
+                    return 'El valor ingresado no tiene el formato adecuado';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 30,),
-              const CustomTextFormField(
+              CustomTextFormField(
+                controller: controller.passwordController,
                 label: 'Contraseña',
                 hint: '********',
                 noVisibility: true,
+                keyboardType: TextInputType.visiblePassword,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese la contraseña';
+                  } else if (value.length < 8) {
+                    return 'Mínimo 8 caracteres';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20,),
               Align(
@@ -147,14 +170,24 @@ class _FormContainer extends GetView<LoginController> {
                   padding: MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: responsive.ip(1), horizontal: responsive.ip(3))),
                 ),
                 child: const Text('Iniciar Sesión'),
-                onPressed: () {
-                  // TODO: Validar el formulario
-                  // if (_formKey.currentState!.validate()) {
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                      // const SnackBar(content: Text('Processing Data')),
-                    // );
-                  // }
-                  Get.offNamed('/navigation');
+                onPressed: () async {
+                  // Get.offNamed('/navigation');
+
+                  if (controller.formKey.currentState!.validate()) {
+                    final firebaseAuthService = FirebaseAuthService();
+                    firebaseAuthService.createAccount(controller.emailController.text, controller.passwordController.text)
+                      .then((status) {
+                        if (status) {
+                          Get.offNamed('/navigation');
+                        } else {
+                          SnackBar snackBar = const SnackBar(
+                            content: Text('Usuario o contraseña incorrectos'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      }
+                    );
+                  }
                 },
               ),
             ],

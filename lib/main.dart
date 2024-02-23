@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:history_app/config/firebase/firebase_options.dart';
 import 'package:history_app/config/routes/app_route.dart';
 import 'package:history_app/config/theme/app_theme.dart';
-// import 'package:history_app/presentation/screens/screens.dart';
+import 'package:history_app/infraestructure/datasources/firebase_datasource.dart';
+import 'package:history_app/infraestructure/repositories/cloud_database_repository_impl.dart';
+import 'package:history_app/presentation/screens/screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,13 +22,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get.put(GalleryController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'History App',
       initialRoute: initialPage,
       getPages: appRouter,
       theme: AppTheme().getTheme(context),
+      initialBinding: MainBinding(),
     );
+  }
+}
+
+class MainBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(CloudDatabaseRepositoryImpl(FirebaseDatasource()));
+    Get.put(UserController());
+    Get.put(NavigationController());
   }
 }
