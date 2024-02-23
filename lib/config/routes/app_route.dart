@@ -7,6 +7,11 @@ final appRouter = <GetPage<dynamic>> [
     GetPage(
       name: '/',
       page: () => const CheckAuthScreen(),
+    ),
+
+    GetPage(
+      name: '/',
+      page: () => const CheckAuthScreen(),
       bindings: [
         LoginBinding()
       ]
@@ -44,6 +49,11 @@ final appRouter = <GetPage<dynamic>> [
     GetPage(
       name: '/information',
       page: () => const HitoPage()
+    ),
+    
+    GetPage(
+      name: '/video',
+      page: () => const FullVideoPage()
     ),
     
     GetPage(
