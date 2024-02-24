@@ -7,11 +7,6 @@ final appRouter = <GetPage<dynamic>> [
     GetPage(
       name: '/',
       page: () => const CheckAuthScreen(),
-    ),
-
-    GetPage(
-      name: '/',
-      page: () => const CheckAuthScreen(),
       bindings: [
         LoginBinding()
       ]

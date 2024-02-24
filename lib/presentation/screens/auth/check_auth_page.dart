@@ -22,16 +22,15 @@ class CheckAuthScreen extends GetView<UserController> {
           
           if (snapshot.connectionState == ConnectionState.active){
             if (snapshot.hasData) {
-              return FutureBuilder(
-                future: controller.loadUser(snapshot.data!.uid),
-                builder: (context, snapshot) {
-                  return const NavigationPage();
-                },
-              );
+              Future.microtask(() => controller.loadUser(snapshot.data!.uid)).then((_) {
+                Get.offAll(const NavigationPage());
+              });
+            } else {
+              Future.microtask(() => Get.offAll(const LoginPage()));
             }
           }
           
-          return const LoginPage();
+          return const SizedBox();
         }, 
       )
    );

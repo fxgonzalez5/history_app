@@ -171,8 +171,6 @@ class _FormContainer extends GetView<LoginController> {
                 ),
                 child: const Text('Iniciar Sesión'),
                 onPressed: () async {
-                  // Get.offNamed('/navigation');
-
                   if (controller.formKey.currentState!.validate()) {
                     final firebaseAuthService = FirebaseAuthService();
                     firebaseAuthService.createAccount(controller.emailController.text, controller.passwordController.text)

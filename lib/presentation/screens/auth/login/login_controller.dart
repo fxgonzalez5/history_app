@@ -1,7 +1,7 @@
 part of 'login_page.dart';
 
 class LoginController extends GetxController {
-  final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
